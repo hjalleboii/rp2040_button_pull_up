@@ -1,8 +1,11 @@
 #include "pico/stdlib.h"
-class Button{
-    uint pin;
-    public:
-    Button(uint pin);
-    bool get();
+#include "stdint.h"
 
-};
+extern "C"{
+
+typedef uint8_t RP2040_Button;
+
+RP2040_Button RP2040_Button_init(uint8_t);
+bool RP2040_Button_get(RP2040_Button);
+
+}
