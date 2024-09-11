@@ -13,6 +13,24 @@ RP2040_Button RP2040_Button_init(uint8_t pin)
 
 bool RP2040_Button_get(RP2040_Button button)
 {
-    return !gpio_get(button);
+    return !gpio_get(button & 0x3F);
+
+}
+
+bool RP2040_Button_Get_Once(RP2040_Button *button){
+    uint8_t pressed = (*button)&(0x80);
+
+
+    uint8_t pin = (*button) & 0x3F;
+    if(!gpio_get(pin)){
+        if(!pressed){
+            
+            return true;
+        }
+        *button = pin | 0x80;
+    }else{
+        *button = pin;
+    }
+    
 
 }
