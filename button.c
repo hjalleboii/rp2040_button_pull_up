@@ -24,13 +24,14 @@ bool RP2040_Button_Get_Once(RP2040_Button *button){
     uint8_t pin = (*button) & 0x3F;
     if(!gpio_get(pin)){
         if(!pressed){
-            
+            *button = pin | 0x80;
             return true;
         }
-        *button = pin | 0x80;
     }else{
         *button = pin;
     }
+
+    return false;
     
 
 }
